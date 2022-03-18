@@ -1,4 +1,3 @@
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +21,7 @@ public class PlayerToBall : MonoBehaviour
     {
         NewControlScheme playerInputActions = new NewControlScheme();
         playerInputActions.Enable();
-        playerInputActions.Player.Transform.performed += DoTransform;
+        playerInputActions.Player.Transforming.performed += DoTransform;
         rbBall = characterBall.GetComponent<Rigidbody>();
         rbStandingPlayer = characterStanding.GetComponent<Rigidbody>();
         vCamController = vCamContainer.GetComponent<CMCameraController>();
@@ -38,9 +37,9 @@ public class PlayerToBall : MonoBehaviour
                 // Transform into ball code here
                 // align both characters with current position
                 characterBall.transform.position = characterStanding.transform.position;
-                // Kill balls last velocity
-                rbBall.angularVelocity = Vector3.zero; 
-                rbBall.velocity = rbStandingPlayer.velocity;
+                // Sets balls velocity & anglr velocty
+                rbBall.angularVelocity = Vector3.zero;
+                standingVelocityToBall();
                 // Unfuck the camera transition
                 vCamController.moveBallCamToAimCam();
                 // Set Camera Transition speed via MainCam CMBrain
@@ -55,7 +54,7 @@ public class PlayerToBall : MonoBehaviour
             {
                 // Transform into standing
                 characterStanding.transform.position = calcStandingPos();
-                rbStandingPlayer.velocity = rbBall.velocity;
+                ballVelocityToStanding();
                 characterContainerBall.SetActive(false);
                 characterContainerStanding.SetActive(true);
                 vCamController.setFreelookPriority(5);
@@ -74,5 +73,15 @@ public class PlayerToBall : MonoBehaviour
     {
         rbBall.angularVelocity = Vector3.zero;
         rbBall.velocity = Vector3.zero;
+    }
+
+    public void ballVelocityToStanding()
+    {
+        rbStandingPlayer.velocity = rbBall.velocity;
+    }
+
+    public void standingVelocityToBall()
+    {
+        rbBall.velocity = rbStandingPlayer.velocity;
     }
 }

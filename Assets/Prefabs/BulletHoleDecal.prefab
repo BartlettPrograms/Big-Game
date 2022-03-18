@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4964111600125705870}
   - component: {fileID: 8316229138038610215}
+  - component: {fileID: 157914296082802419}
   m_Layer: 0
   m_Name: BulletHoleDecal
   m_TagString: Untagged
@@ -82,3 +83,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &157914296082802419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7080493878447598351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9096a2f64e07fc2a7cdc1d81e12b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

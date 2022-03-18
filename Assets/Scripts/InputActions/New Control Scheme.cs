@@ -82,7 +82,7 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Transform"",
+                    ""name"": ""Transforming"",
                     ""type"": ""Button"",
                     ""id"": ""717c9d7f-cdee-4611-8320-d26c830c091b"",
                     ""expectedControlType"": ""Button"",
@@ -94,6 +94,42 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                     ""name"": ""Reset Level"",
                     ""type"": ""Button"",
                     ""id"": ""c49983d2-9c79-4dbb-95f6-acba51986414"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b60fdee-2115-4949-940a-38e849cf9dcf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon1"",
+                    ""type"": ""Value"",
+                    ""id"": ""fc08cc89-70f2-46b9-b3c6-6cf385f365c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectWeapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""40ea11d3-f9fa-4951-9b6f-5ebdc4235ce6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9620105-79fe-474b-8c67-dd5aadbdc2f9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -218,18 +254,62 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Transform"",
+                    ""action"": ""Transforming"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""8aec378a-2f74-4be5-ad55-cfdc5e6b14c3"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reset Level"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d154d4f9-96ea-4697-8fef-aa7757342007"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07fb2f2a-c004-4253-a4c4-248629687874"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5dd04457-4659-482b-afea-45e64e0f531b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c57999fd-0671-4647-a862-aa24d00dabb1"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -246,8 +326,12 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_Transform = m_Player.FindAction("Transform", throwIfNotFound: true);
+        m_Player_Transforming = m_Player.FindAction("Transforming", throwIfNotFound: true);
         m_Player_ResetLevel = m_Player.FindAction("Reset Level", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_SelectWeapon1 = m_Player.FindAction("SelectWeapon1", throwIfNotFound: true);
+        m_Player_SelectWeapon2 = m_Player.FindAction("SelectWeapon2", throwIfNotFound: true);
+        m_Player_SelectWeapon3 = m_Player.FindAction("SelectWeapon3", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -313,8 +397,12 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_Transform;
+    private readonly InputAction m_Player_Transforming;
     private readonly InputAction m_Player_ResetLevel;
+    private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_SelectWeapon1;
+    private readonly InputAction m_Player_SelectWeapon2;
+    private readonly InputAction m_Player_SelectWeapon3;
     public struct PlayerActions
     {
         private @NewControlScheme m_Wrapper;
@@ -325,8 +413,12 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        public InputAction @Transform => m_Wrapper.m_Player_Transform;
+        public InputAction @Transforming => m_Wrapper.m_Player_Transforming;
         public InputAction @ResetLevel => m_Wrapper.m_Player_ResetLevel;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @SelectWeapon1 => m_Wrapper.m_Player_SelectWeapon1;
+        public InputAction @SelectWeapon2 => m_Wrapper.m_Player_SelectWeapon2;
+        public InputAction @SelectWeapon3 => m_Wrapper.m_Player_SelectWeapon3;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -354,12 +446,24 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
-                @Transform.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransform;
-                @Transform.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransform;
-                @Transform.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransform;
+                @Transforming.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransforming;
+                @Transforming.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransforming;
+                @Transforming.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransforming;
                 @ResetLevel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetLevel;
                 @ResetLevel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetLevel;
                 @ResetLevel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetLevel;
+                @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @SelectWeapon1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon1;
+                @SelectWeapon1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon1;
+                @SelectWeapon1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon1;
+                @SelectWeapon2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
+                @SelectWeapon2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
+                @SelectWeapon2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
+                @SelectWeapon3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
+                @SelectWeapon3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
+                @SelectWeapon3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -382,12 +486,24 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @Transform.started += instance.OnTransform;
-                @Transform.performed += instance.OnTransform;
-                @Transform.canceled += instance.OnTransform;
+                @Transforming.started += instance.OnTransforming;
+                @Transforming.performed += instance.OnTransforming;
+                @Transforming.canceled += instance.OnTransforming;
                 @ResetLevel.started += instance.OnResetLevel;
                 @ResetLevel.performed += instance.OnResetLevel;
                 @ResetLevel.canceled += instance.OnResetLevel;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
+                @SelectWeapon1.started += instance.OnSelectWeapon1;
+                @SelectWeapon1.performed += instance.OnSelectWeapon1;
+                @SelectWeapon1.canceled += instance.OnSelectWeapon1;
+                @SelectWeapon2.started += instance.OnSelectWeapon2;
+                @SelectWeapon2.performed += instance.OnSelectWeapon2;
+                @SelectWeapon2.canceled += instance.OnSelectWeapon2;
+                @SelectWeapon3.started += instance.OnSelectWeapon3;
+                @SelectWeapon3.performed += instance.OnSelectWeapon3;
+                @SelectWeapon3.canceled += instance.OnSelectWeapon3;
             }
         }
     }
@@ -400,7 +516,11 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnTransform(InputAction.CallbackContext context);
+        void OnTransforming(InputAction.CallbackContext context);
         void OnResetLevel(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
+        void OnSelectWeapon1(InputAction.CallbackContext context);
+        void OnSelectWeapon2(InputAction.CallbackContext context);
+        void OnSelectWeapon3(InputAction.CallbackContext context);
     }
 }
