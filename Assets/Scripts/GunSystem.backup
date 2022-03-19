@@ -44,7 +44,6 @@ public class GunSystem : MonoBehaviour
         playerInputActions.Player.Shoot.performed += GunTrigger;
         // assign function to Reload Control
         playerInputActions.Player.Reload.performed += Reload;
-        if (allowButtonHold) playerInputActions.Player.Reload.canceled += stopGunTrigger;
 
         // Gun stats setup
         bulletsLeft = magazineSize; // fill with ammo
@@ -65,24 +64,14 @@ public class GunSystem : MonoBehaviour
             if (allowButtonHold)
             {
                 playerHoldingTrigger = true;
-                while (playerHoldingTrigger)
-                {
-                    bulletsShot = bulletsPerTap;
-                    Shoot();
-                    readyToShoot = false;
-                }
-            }
-            else
+            } else
             {
                 bulletsShot = bulletsPerTap;
                 Shoot();
                 readyToShoot = false;
             }
         }
-    }
 
-    private void stopGunTrigger(InputAction.CallbackContext context)
-    {
         if (context.canceled && allowButtonHold)
         {
             playerHoldingTrigger = false;

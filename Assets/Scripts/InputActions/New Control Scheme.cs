@@ -134,6 +134,15 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon 4"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f7e9af3-c353-464e-9f1a-44d181e18bf9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,7 +238,7 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""7ab8acdc-e512-4374-b1a3-12d73da130e7"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=1.401298E-45,pressPoint=1.401298E-45)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
@@ -312,6 +321,17 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                     ""action"": ""SelectWeapon3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de04f809-d7ad-4be2-a578-abb4a082a9a3"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon 4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -332,6 +352,7 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
         m_Player_SelectWeapon1 = m_Player.FindAction("SelectWeapon1", throwIfNotFound: true);
         m_Player_SelectWeapon2 = m_Player.FindAction("SelectWeapon2", throwIfNotFound: true);
         m_Player_SelectWeapon3 = m_Player.FindAction("SelectWeapon3", throwIfNotFound: true);
+        m_Player_SelectWeapon4 = m_Player.FindAction("SelectWeapon 4", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +424,7 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectWeapon1;
     private readonly InputAction m_Player_SelectWeapon2;
     private readonly InputAction m_Player_SelectWeapon3;
+    private readonly InputAction m_Player_SelectWeapon4;
     public struct PlayerActions
     {
         private @NewControlScheme m_Wrapper;
@@ -419,6 +441,7 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
         public InputAction @SelectWeapon1 => m_Wrapper.m_Player_SelectWeapon1;
         public InputAction @SelectWeapon2 => m_Wrapper.m_Player_SelectWeapon2;
         public InputAction @SelectWeapon3 => m_Wrapper.m_Player_SelectWeapon3;
+        public InputAction @SelectWeapon4 => m_Wrapper.m_Player_SelectWeapon4;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -464,6 +487,9 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                 @SelectWeapon3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
                 @SelectWeapon3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
                 @SelectWeapon3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
+                @SelectWeapon4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon4;
+                @SelectWeapon4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon4;
+                @SelectWeapon4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon4;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -504,6 +530,9 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
                 @SelectWeapon3.started += instance.OnSelectWeapon3;
                 @SelectWeapon3.performed += instance.OnSelectWeapon3;
                 @SelectWeapon3.canceled += instance.OnSelectWeapon3;
+                @SelectWeapon4.started += instance.OnSelectWeapon4;
+                @SelectWeapon4.performed += instance.OnSelectWeapon4;
+                @SelectWeapon4.canceled += instance.OnSelectWeapon4;
             }
         }
     }
@@ -522,5 +551,6 @@ public partial class @NewControlScheme : IInputActionCollection2, IDisposable
         void OnSelectWeapon1(InputAction.CallbackContext context);
         void OnSelectWeapon2(InputAction.CallbackContext context);
         void OnSelectWeapon3(InputAction.CallbackContext context);
+        void OnSelectWeapon4(InputAction.CallbackContext context);
     }
 }

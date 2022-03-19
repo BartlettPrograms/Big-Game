@@ -34,6 +34,11 @@ public class ResetLevel : MonoBehaviour
         respawnPosBall.z = spawnPoint.transform.position.z;
     }
 
+    private void Start()
+    {
+        characterStanding.transform.position = respawnPosStanding;
+    }
+
     private void DoReset(InputAction.CallbackContext context)
     {
         if (context.performed)

@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectWeapon 4",
+                    "type": "Button",
+                    "id": "7f7e9af3-c353-464e-9f1a-44d181e18bf9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -207,7 +216,7 @@
                     "name": "",
                     "id": "7ab8acdc-e512-4374-b1a3-12d73da130e7",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold(duration=1.401298E-45,pressPoint=1.401298E-45)",
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
@@ -288,6 +297,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectWeapon3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de04f809-d7ad-4be2-a578-abb4a082a9a3",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectWeapon 4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
