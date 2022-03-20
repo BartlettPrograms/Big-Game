@@ -12,7 +12,7 @@ public class EnemyScript : MonoBehaviour
         health -= damageTaken - armour;
         if (health <= 0)
         {
-            enemy.SetActive(false);
+            Destroy(enemy);
         }
     }
 }

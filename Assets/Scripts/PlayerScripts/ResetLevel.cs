@@ -39,6 +39,11 @@ public class ResetLevel : MonoBehaviour
         characterStanding.transform.position = respawnPosStanding;
     }
 
+    private void Update()
+    {
+        
+    }
+
     private void DoReset(InputAction.CallbackContext context)
     {
         if (context.performed)

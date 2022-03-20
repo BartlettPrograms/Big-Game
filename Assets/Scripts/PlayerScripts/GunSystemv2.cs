@@ -61,23 +61,24 @@ public class GunSystemv2 : MonoBehaviour
             float x = Random.Range(-spread, spread);
             float y = Random.Range(-spread, spread);
             // Calculate Direction with Spread
-            Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, x);
+            Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, x); // Spread here is fucking buggy >:(
             //Raycast bullet end position, use spread to calculate
             if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
             {
-                if (rayHit.collider.CompareTag("Enemy")) // compare tag here, compare layer there.
+                if (rayHit.collider.CompareTag("Enemy")) // Look for enemy. Only Generate Bullethole if !enemy
                 {
                     rayHit.collider.GetComponent<EnemyScript>().TakeDamage(damage); // Damage script here
                 }
                 else
                 {
+                    //BulletHoleGfx -   *001f in eq. is to stop glitchy gfx
                     Instantiate(bulletHoleGraphic, rayHit.point + rayHit.normal * .001f, Quaternion.LookRotation(rayHit.normal));
                 }
             }
         }
         CMCameraController.Instance.cameraShake(0.5f, 7f,  .135f);
         
-        // Graphics
+        // Muzzle flash Graphics
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity); // chuck it in later
 
         bulletsLeft--;
@@ -114,6 +115,5 @@ public class GunSystemv2 : MonoBehaviour
     private void resetShot()
     {
         readyToShoot = true;
-        Debug.Log("readyToShoot: " + readyToShoot);
     }
 }

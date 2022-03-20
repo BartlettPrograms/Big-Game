@@ -5,6 +5,7 @@ public class WeaponSwitching : MonoBehaviour
 {
     [SerializeField] private GameObject weaponContainer;
     
+    // Importing player input again and again. Make a pInputclass
     private PlayerInput playerInput;
 
     private int previousSelectedWeapon;
@@ -65,6 +66,7 @@ public class WeaponSwitching : MonoBehaviour
     
     
     // Logic to execute when pressing change weapon buttons
+    // Surely this can be less ugly. who knows
     private void selectWeapon1(InputAction.CallbackContext context)
     {
         previousSelectedWeapon = selectedWeapon;
