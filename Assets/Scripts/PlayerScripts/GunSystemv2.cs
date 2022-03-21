@@ -12,14 +12,22 @@ public class GunSystemv2 : MonoBehaviour
     
     //bools
     private bool isShooting, readyToShoot, reloading;
+    private bool triggerExtra = true; // for event that only happens once while trigger hold
 
     //Extra Graphics
     [SerializeField] private GameObject bulletHoleGraphic;
+    [SerializeField] private GameObject muzzleFlashGraphic;
     
     //Reference
     [SerializeField] private Camera fpsCam;
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private RaycastHit rayHit;
+    private RaycastHit rayHit;
+    
+    //Audio
+    private AudioSource audio;
+    [SerializeField] private AudioClip reloadingAudio;
+    [SerializeField] private AudioClip gunshotAudio;
+    [SerializeField] private AudioClip noAmmoAudio;
 
     private void Awake()
     {
@@ -38,13 +46,24 @@ public class GunSystemv2 : MonoBehaviour
         bulletsLeft = magazineSize; // fill with ammo
         readyToShoot = true;
         reloading = false;
+        
+        // Assign audio
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
     {
+        // Fire Ammo
         if (readyToShoot && isShooting && !reloading && bulletsLeft > 0)
         {
             shoot();
+        }
+        // No ammo, trigger pulled
+        if (bulletsLeft <= 0 && triggerExtra && readyToShoot && !reloading)
+        {
+            audio.clip = noAmmoAudio;
+            audio.Play();           // I want this to trigger as soon as mouse clicks, not on release
+            triggerExtra = false;
         }
     }
 
@@ -79,7 +98,10 @@ public class GunSystemv2 : MonoBehaviour
         CMCameraController.Instance.cameraShake(0.5f, 7f,  .135f);
         
         // Muzzle flash Graphics
-        //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity); // chuck it in later
+        Instantiate(muzzleFlashGraphic, attackPoint.position, Quaternion.identity, attackPoint);
+        
+        // Audio
+        audio.Play();
 
         bulletsLeft--;
         Invoke("resetShot", timeBetweenShooting);
@@ -89,6 +111,7 @@ public class GunSystemv2 : MonoBehaviour
     private void gunTrigger(InputAction.CallbackContext context)
     {
         isShooting = true;
+        triggerExtra = true;
     }
     private void stopGunTrigger(InputAction.CallbackContext context)
     {
@@ -107,6 +130,15 @@ public class GunSystemv2 : MonoBehaviour
 
     private void reloadGun()
     {
+        audio.clip = reloadingAudio;
+        audio.Play();
+        Invoke("reloadComplete", audio.clip.length);
+        
+    }
+
+    private void reloadComplete()
+    {
+        setBulletAudio();
         bulletsLeft = magazineSize;
         reloading = false;
     }
@@ -115,5 +147,10 @@ public class GunSystemv2 : MonoBehaviour
     private void resetShot()
     {
         readyToShoot = true;
+    }
+
+    private void setBulletAudio()
+    {
+        audio.clip = gunshotAudio;
     }
 }
