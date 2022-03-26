@@ -5,9 +5,14 @@ using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [SerializeField] private PlayerToBall playerToBallScript;
     [SerializeField] private GameObject playerContainer;
     [SerializeField] private int damageDealt = 20;
+    
+    // Who to chase
+    private GameObject player;
+
+    private GameObject targetPlayer;
 
     // Define states the enemy can be in
     private enum State
@@ -24,8 +29,8 @@ public class EnemyAI : MonoBehaviour
     private State state;
     
     // Ranges to detect
-    private float targetRange = 50f;
-    private float attackRange = 7f;
+    private float targetRange = 30f;
+    private float attackRange = 20f;
     
     // Speeds
     private float dashSpeed = 25f;
@@ -88,23 +93,27 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         // Move to Player
-        pathfindingMovement.MoveTo(player.transform.position);
+        pathfindingMovement.MoveTo(playerToBallScript.activeCharacterRef.transform.position);
     }
 
     // detect if enemy can "see" the player. If so, enemy enters chase mode
     private void FindTarget()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < targetRange)
+        if (Vector3.Distance(transform.position, playerToBallScript.activeCharacterRef.transform.position) < targetRange)
         {
             // Player within target range
             state = State.ChaseTarget;
+        } else if (Vector3.Distance(transform.position, playerToBallScript.activeCharacterRef.transform.position) < targetRange)
+        {
+            // Player within target range
+            state = State.Roaming;
         }
     }
 
     // Detect if player is in attack range, if so enemy will attack player. no state for this right now
     private bool detectPossibleAttack()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+        if (Vector3.Distance(transform.position, playerToBallScript.activeCharacterRef.transform.position) < attackRange)
         {
             return true;
         }

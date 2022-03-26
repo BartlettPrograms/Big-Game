@@ -9,12 +9,15 @@ public class PlayerToBall : MonoBehaviour
     [SerializeField] private GameObject characterBall;
     [SerializeField] private GameObject characterStanding;
     [SerializeField] private GameObject vCamContainer;
+    [SerializeField] private CMCameraController cmCamController;
 
     private Rigidbody rbBall;
     private Rigidbody rbStandingPlayer;
     private CMCameraController vCamController;
 
     private float characterHeight = 1f;
+
+    public GameObject activeCharacterRef;
 
 
     private void Awake()
@@ -25,6 +28,7 @@ public class PlayerToBall : MonoBehaviour
         rbBall = characterBall.GetComponent<Rigidbody>();
         rbStandingPlayer = characterStanding.GetComponent<Rigidbody>();
         vCamController = vCamContainer.GetComponent<CMCameraController>();
+        activeCharacterRef = characterStanding;
     }
 
     private void DoTransform(InputAction.CallbackContext context)
@@ -49,6 +53,7 @@ public class PlayerToBall : MonoBehaviour
                 characterContainerBall.SetActive(true);
                 // Swap active cameras
                 vCamController.setFreelookPriority(30);
+                activeCharacterRef = characterBall;
             }
             else if (characterContainerBall.activeInHierarchy)
             {
@@ -58,6 +63,7 @@ public class PlayerToBall : MonoBehaviour
                 characterContainerBall.SetActive(false);
                 characterContainerStanding.SetActive(true);
                 vCamController.setFreelookPriority(5);
+                activeCharacterRef = characterStanding;
             }
         }
     }

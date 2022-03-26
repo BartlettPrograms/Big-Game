@@ -5,7 +5,8 @@ public class GunSystemv2 : MonoBehaviour
 {
     //Gun stats
     [SerializeField] private int damage;
-    [SerializeField] private float timeBetweenShooting, spread, range, reloadTime, timeBetweenBFShots; // timeBetweenShots = Burstfire variable. timeBetweenShooting = Automatic variable.
+    [SerializeField] private float bulletSpeed = 120f;
+    [SerializeField] private float shootIntoAirDistance, timeBetweenShooting, spread, range, reloadTime, timeBetweenBFShots; // timeBetweenShots = Burstfire variable. timeBetweenShooting = Automatic variable.
     [SerializeField] private int magazineSize, bulletsPerTap;
     [SerializeField] private bool allowButtonHold;
     private int bulletsLeft, bulletsShot;
@@ -17,9 +18,14 @@ public class GunSystemv2 : MonoBehaviour
     //Extra Graphics
     [SerializeField] private GameObject bulletHoleGraphic;
     [SerializeField] private GameObject muzzleFlashGraphic;
+    [SerializeField] private GameObject bulletPrefab;
     
+    // Bullet stuff
+    [SerializeField] private Transform bulletParent;
+
     //Reference
     [SerializeField] private Camera fpsCam;
+    private Transform fpsCamTransform;
     [SerializeField] private Transform attackPoint;
     private RaycastHit rayHit;
     
@@ -46,6 +52,8 @@ public class GunSystemv2 : MonoBehaviour
         bulletsLeft = magazineSize; // fill with ammo
         readyToShoot = true;
         reloading = false;
+
+        fpsCamTransform = fpsCam.transform;
         
         // Assign audio
         audio = gameObject.GetComponent<AudioSource>();
@@ -79,22 +87,39 @@ public class GunSystemv2 : MonoBehaviour
             //Spread
             float x = Random.Range(-spread, spread);
             float y = Random.Range(-spread, spread);
+            float z = Random.Range(-spread, spread);
             // Calculate Direction with Spread
-            Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, x); // Spread here is fucking buggy >:(
-            //Raycast bullet end position, use spread to calculate
-            if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
+            Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, z);
+            
+            
+            
+            
+            
+            //Shoot Raycast
+            RaycastHit rayHit;
+            GameObject bullet = GameObject.Instantiate(bulletPrefab, attackPoint.position, Quaternion.identity, bulletParent);
+            BulletController bulletController = bullet.GetComponent<BulletController>();
+            if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, Mathf.Infinity))
             {
-                if (rayHit.collider.CompareTag("Enemy")) // Look for enemy. Only Generate Bullethole if !enemy
-                {
-                    rayHit.collider.GetComponent<EnemyScript>().TakeDamage(damage); // Damage script here
-                }
-                else
-                {
-                    //BulletHoleGfx -   *001f in eq. is to stop glitchy gfx
-                    Instantiate(bulletHoleGraphic, rayHit.point + rayHit.normal * .001f, Quaternion.LookRotation(rayHit.normal));
-                }
+                bulletController.target = rayHit.point;
+                bulletController.hit = true;
+                bulletController.damage = damage;
+                bulletController.bulletSpeed = bulletSpeed;
+            }
+            else
+            {
+                bulletController.target = fpsCamTransform.position + fpsCamTransform.forward * shootIntoAirDistance;
+                bulletController.hit = true;
+                bulletController.damage = damage;
+                bulletController.bulletSpeed = bulletSpeed;
             }
         }
+        
+        
+        
+        
+        
+        //Shake Camera
         CMCameraController.Instance.cameraShake(0.5f, 7f,  .135f);
         
         // Muzzle flash Graphics

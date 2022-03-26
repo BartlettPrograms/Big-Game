@@ -61,7 +61,7 @@ MonoBehaviour:
     m_To: CM 3rdPerson Normal
     m_Blend:
       m_Style: 1
-      m_Time: 1.2
+      m_Time: 0.3
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -72,7 +72,7 @@ MonoBehaviour:
     m_To: CM 3rdPerson Aim
     m_Blend:
       m_Style: 1
-      m_Time: 1.2
+      m_Time: 0.7
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
